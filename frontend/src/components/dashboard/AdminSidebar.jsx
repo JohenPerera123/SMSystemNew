@@ -11,20 +11,19 @@ function AdminSidebar() {
             <h3 className='text-2xl text-center'>Stadium MS</h3>
         </div>
         <div>
-            <NavLink to="/admin-dashboard"
-             className="flex items-center gap-2 p-2 text-gray-700 hover:bg-gray-200 rounded-md">
-                <FaTachometerAlt/>
-                <span> Dashboard</span>
+            <NavLink to="/admin-dashboard" className={({ isActive }) =>`${isActive ? "bg-teal-500" : ""} flex items-center gap-2 p-2 text-white-700 hover:bg-gray-200 rounded-md`}end>
+                <FaTachometerAlt />
+                <span>Dashboard</span>
             </NavLink>
-            <NavLink to="/admin-dashboard" className="flex items-center gap-2 p-2 text-gray-700 hover:bg-gray-200 rounded-md">
+            <NavLink to="/admin-dashboard/stadiums" className={({ isActive }) =>`${isActive ? "bg-teal-500" : ""} flex items-center gap-2 p-2 text-white-700 hover:bg-gray-200 rounded-md`}>
                 <MdSportsSoccer />
                 <span> Stadiums</span>
             </NavLink>
-            <NavLink to="/admin-dashboard" className="flex items-center gap-2 p-2 text-gray-700 hover:bg-gray-200 rounded-md">
+            <NavLink to="/admin-dashboard" className="flex items-center gap-2 p-2 text-white-700 hover:bg-gray-200 rounded-md">
                 <FaBaseballBall />
                 <span> Events</span>
             </NavLink>
-            <NavLink to="/admin-dashboard" className="flex items-center gap-2 p-2 text-gray-700 hover:bg-gray-200 rounded-md">
+            <NavLink to="/admin-dashboard" className="flex items-center gap-2 p-2 text-white-700 hover:bg-gray-200 rounded-md">
                 <FaUsers/>
                 <span> CRM</span>
             </NavLink>
