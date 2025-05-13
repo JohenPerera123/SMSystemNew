@@ -14,7 +14,7 @@ const stadiumSchema = new mongoose.Schema({
         required: true,
     },
     resourceres: {
-        type: [String],
+        type: String,
         required: true,
     },
     createAt: {
