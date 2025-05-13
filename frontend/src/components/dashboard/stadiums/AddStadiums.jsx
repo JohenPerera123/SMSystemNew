@@ -1,5 +1,6 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React,{useState} from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 const AddStadiums = () => {
   const [stadium, setStadium] = useState({
@@ -18,7 +19,7 @@ const AddStadiums = () => {
     };
 
     const handleSubmit = async(e) => {
-        e.preventDefalt();
+        e.preventDefault();
         try {
             const response = await axios.post('http://localhost:5000/api/stadiums/add', stadium, {
                 headers: {
@@ -43,7 +44,7 @@ const AddStadiums = () => {
                 <div>
                     <label htmlFor="Std_name"
                     className='text-sm font-medium text-gray-700'>Stadium Name</label>
-                    <input type="text" placeholder='Enter Satadium name'
+                    <input type="text" placeholder='Enter Satadium name' name='Std_name'
                     onChange={handleChange}
                     className='mt-1 w-full p-2 border border-gray-300 rounded-md'/>
 
@@ -51,7 +52,7 @@ const AddStadiums = () => {
                 <div>
                     <label htmlFor="Std_location"
                     className='text-sm font-medium text-gray-700'>Location</label>
-                    <input type="text" placeholder='Location'
+                    <input type="text" placeholder='Location' name='Std_location'
                     onChange={handleChange}
                     className='mt-1 w-full p-2 border border-gray-300 rounded-md'/>
 
@@ -59,7 +60,7 @@ const AddStadiums = () => {
                 <div>
                     <label htmlFor="Std_capacity"
                     className='text-sm font-medium text-gray-700'>Capacity</label>
-                    <input type="number" placeholder='Capacity'
+                    <input type="number" placeholder='Capacity' name='Std_capacity'
                     onChange={handleChange}
                     className='mt-1 w-full p-2 border border-gray-300 rounded-md'/>
 

@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 import {useAuth} from '../context/authContext.jsx'
 import { useNavigate } from 'react-router-dom'
 
-function Login() {
+const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('null')

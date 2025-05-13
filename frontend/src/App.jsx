@@ -7,6 +7,7 @@ import RoleBaseRoutes from './utils/RoleBaseRoutes'
 import AdminSummary from './components/dashboard/AdminSummary'
 import StadiumsList from './components/dashboard/stadiums/StadiumsList'
 import AddStadiums from './components/dashboard/stadiums/AddStadiums'
+import EditStadiums from './components/dashboard/stadiums/EditStadiums'
 
 function App() {
  
@@ -25,6 +26,7 @@ function App() {
         <Route index element={<AdminSummary />}></Route>
         <Route path="/admin-dashboard/stadiums" element={<StadiumsList />}></Route>
         <Route path="/admin-dashboard/add-stadiums" element={<AddStadiums />}></Route>
+        <Route path="/admin-dashboard/stadium/:id" element={<EditStadiums />}></Route>
 
       </Route>
         <Route path="/user-dashboard" element={<userDashboard />}></Route>

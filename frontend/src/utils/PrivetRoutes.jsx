@@ -3,9 +3,9 @@ import { useAuth } from '../context/authContext'
 import { Navigate } from 'react-router-dom'
 
 const PrivetRoutes=({children}) => {
- const {user,lodading} = useAuth()
+ const {user,loading} = useAuth()
 
- if(lodading) {
+ if(loading) {
     return <div>loding...</div>
  }
 
