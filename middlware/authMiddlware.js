@@ -8,7 +8,7 @@ const verifyUser = async (req,res,next) => {
             return res.status(404).json({success:false,error:"Token not provided"})
         }
 
-        const decoded = jwt.verify(token, process.env.JWT_KEY)
+        const decoded = jwt.verify(token, process.env.JWT_KEY);
         if(!decoded)
         {
             return res.status(404).json({success:false,error:"Token not valid"})
@@ -24,7 +24,8 @@ const verifyUser = async (req,res,next) => {
         req.username = user
         next()
     } catch (error) {
-        return req.status(500).json({success:false,error:"server Error"})
+        console.log(error)
+        return res.status(500).json({success:false,error:"server Error"})
     }
 }
 
