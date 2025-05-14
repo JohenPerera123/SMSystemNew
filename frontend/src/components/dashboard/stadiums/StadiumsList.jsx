@@ -7,7 +7,7 @@ import axios from 'axios'
 const StadiumsList = () => {
   const [stadiums, setStadiums] = useState([]);
   const [stdLoading, setStdLoading] = useState(false)
-  const [filteredStadiums, setFilterStadiums] = useState([])
+  const [filteredStadiums, setFilterStadiums] = useState('')
   const onStadiumDelete =async(id) => { 
     const data =await stadiums.filter(std => std._id !== id)
     setStadiums(data)
@@ -46,7 +46,8 @@ const StadiumsList = () => {
   }, [])
 
   const filterStadiums = (e) => {
-    const records = stadiums.filter((std) => std.std_name.toLowerCase().includes(e.target.value.toLowerCase())) 
+    const records = stadiums.filter((std) => 
+      std.std_name.toLowerCase().includes(e.target.value.toLowerCase())) 
   setFilterStadiums(records)
   }
 
@@ -71,7 +72,8 @@ const StadiumsList = () => {
         </div>
         <div>
             <DataTable
-              columns={columns} data={filteredStadiums}
+              columns={columns} data={filteredStadiums || stadiums}
+              pagination
             />
         </div>
     </div>

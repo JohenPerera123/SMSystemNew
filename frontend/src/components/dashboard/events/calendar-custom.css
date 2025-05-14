@@ -1,0 +1,6 @@
+/* Highlight calendar tile with events */
+.highlight-event {
+  background: #14b8a6 !important; /* teal-500 */
+  color: white !important;
+  border-radius: 50%;
+}

@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, {useState} from 'react'
 import {useAuth} from '../context/authContext.jsx'
 import { useNavigate } from 'react-router-dom'
-
+import { Link } from 'react-router-dom'
 const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -69,9 +69,8 @@ const Login = () => {
                     <input type="checkbox" className='form-checkbox' />
                     <span className='ml-2 text-gray-700'>Remember me</span>
                 </label>
-                <a href="#" className='text-teal-600'>
-                Forget Password?
-                </a>
+                <Link to="/register" className='text-teal-600'>Register Now</Link>
+                
             </div>
             <div className='mb-4'>
                 <button type='submit' className='w-full bg-teal-600 text-white py-2'>Login</button>
