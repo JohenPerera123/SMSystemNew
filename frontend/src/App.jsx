@@ -15,6 +15,7 @@ import AddEvent from './components/dashboard/events/AddEvent'
 import Register from './pages/Register'
 import TicketBook from './components/dashboard/ticket/TicketBook'
 import AddTicketPage from './components/dashboard/ticket/AddTicketPage'
+import UCrm from './components/dashboard/crm/UCrm'
 
 function App() {
  
@@ -50,6 +51,7 @@ function App() {
   <Route path="events" element={<UEventList />} />
   <Route path="ticket" element={<TicketBook />} />
   <Route path="/user-dashboard/book/:eventId" element={<AddTicketPage />} />
+  <Route path="/user-dashboard/crm" element={<UCrm />} />
 
   {/* You can add more nested routes here later, like ticket booking, profile, etc. */}
 </Route>
