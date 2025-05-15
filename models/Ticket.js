@@ -1,12 +1,4 @@
 import mongoose from 'mongoose';
-import Event from './Event.js';
-import Stadium from './Stadium.js';
-
-// Helper function to generate seat numbers
-let seatCounter = 1;
-function generateSeatNumber() {
-    return `S-${seatCounter++}`;
-}
 
 const ticketSchema = new mongoose.Schema({
     name: {
@@ -42,14 +34,9 @@ const ticketSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    availableSeat: {
-        type: Number,
-        required: true,
-    },
     seatNumber: {
         type: String,
-        default: generateSeatNumber,
-        unique: true,
+        required: true,
     },
     createdAt: {
         type: Date,
