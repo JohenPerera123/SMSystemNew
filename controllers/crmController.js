@@ -9,7 +9,7 @@ export const createComment = async (req, res) => {
     const user = await User.findById(userId);
     if (!user) return res.status(404).json({ error: 'User not found.' });
 
-    const newComment = new Crm({ userId, userName: user.username, comment });
+    const newComment = new Crm({ userId, comment });
     await newComment.save();
 
     res.status(201).json({ message: 'Comment submitted successfully.' });
@@ -18,6 +18,18 @@ export const createComment = async (req, res) => {
     res.status(500).json({ error: 'Internal server error.' });
   }
 };
+
+// Admin: Get all comments
+export const getAllComments = async (req, res) => {
+  try {
+    const comments = await Crm.find().sort({ submittedAt: -1 });
+    res.json(comments); // Ensure this returns an array
+  } catch (error) {
+    console.error('Error fetching all comments:', error);
+    res.status(500).json({ error: 'Failed to fetch comments.' });
+  }
+};
+
 
 // Secure: Only get comments that belong to the requesting user
 export const getUserComments = async (req, res) => {

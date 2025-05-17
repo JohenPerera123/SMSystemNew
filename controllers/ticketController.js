@@ -20,6 +20,16 @@ export const getTicketsByEvent = async (req, res) => {
   }
 };
 
+// Fetch all tickets
+export const getAllTickets = async (req, res) => {
+  try {
+    const tickets = await Ticket.find();
+    res.json(tickets);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch tickets' });
+  }
+};
+
 // Book a ticket
 export const bookTicket = async (req, res) => {
   try {
@@ -75,5 +85,37 @@ export const bookTicket = async (req, res) => {
     }
 
     res.status(500).json({ error: 'Internal server error.' });
+  }
+};
+
+// Group tickets by booking date for the last 7 days
+export const getTicketTrend = async (req, res) => {
+  try {
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6); // includes today
+
+    const tickets = await Ticket.aggregate([
+      {
+        $match: {
+          createdAt: { $gte: sevenDaysAgo }
+        }
+      },
+      {
+        $group: {
+          _id: {
+            $dateToString: { format: "%Y-%m-%d", date: "$createdAt" }
+          },
+          count: { $sum: 1 }
+        }
+      },
+      {
+        $sort: { _id: 1 }
+      }
+    ]);
+
+    res.json(tickets);
+  } catch (err) {
+    console.error('Error generating ticket trend:', err);
+    res.status(500).json({ error: 'Failed to generate ticket trend data' });
   }
 };

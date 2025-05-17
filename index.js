@@ -6,6 +6,8 @@ import eventRouter from './routes/event.js'
 import connectDatabase from './db/db.js'
 import ticketRouter from './routes/ticket.js'
 import crmRouter from './routes/crm.js'
+import dashboardRouter from './routes/dashboard.js';
+
 connectDatabase()
 const app = express()
 app.use(cors())
@@ -15,6 +17,8 @@ app.use('/api/stadiums', stadiumRouter)
 app.use('/api/events', eventRouter)
 app.use('/api/tickets', ticketRouter)
 app.use('/api/crm', crmRouter)
+app.use('/api/dashboard', dashboardRouter);
+
 
 app.listen(process.env.PORT,() => {
     console.log(`Server is running on port ${process.env.PORT}`)
