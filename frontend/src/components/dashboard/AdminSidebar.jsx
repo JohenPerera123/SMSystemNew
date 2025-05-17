@@ -25,9 +25,9 @@ function AdminSidebar() {
                 <FaBaseballBall />
                 <span> Events</span>
             </NavLink>
-            <NavLink to="/admin-dashboard" className="flex items-center gap-2 p-2 text-white-700 hover:bg-gray-200 rounded-md">
+            <NavLink to="/admin-dashboard/crm" className="flex items-center gap-2 p-2 text-white-700 hover:bg-gray-200 rounded-md">
                 <FaUsers/>
-                <span> CRM</span>
+                <span> CRM Comments</span>
             </NavLink>
         </div>
     </div>

@@ -11,10 +11,10 @@ const UserSidebar = () => {
             <h3 className='text-2xl text-center'>Stadium MS</h3>
         </div>
         <div>
-            <NavLink to="/user-dashboard" className={({ isActive }) =>`${isActive ? "bg-teal-500" : ""} flex items-center gap-2 p-2 text-white-700 hover:bg-gray-200 rounded-md`}end>
+            {/* <NavLink to="/user-dashboard" className={({ isActive }) =>`${isActive ? "bg-teal-500" : ""} flex items-center gap-2 p-2 text-white-700 hover:bg-gray-200 rounded-md`}end>
                 <FaTachometerAlt />
                 <span>Dashboard</span>
-            </NavLink>
+            </NavLink> */}
             <NavLink to="/user-dashboard/events" 
             className={({ isActive }) =>`${isActive ? "bg-teal-500" : ""} flex items-center gap-2 p-2 text-white-700 hover:bg-gray-200 rounded-md`}>
                 <FaBaseballBall />
@@ -27,7 +27,7 @@ const UserSidebar = () => {
             </NavLink>
             <NavLink to="/user-dashboard/crm" className="flex items-center gap-2 p-2 text-white-700 hover:bg-gray-200 rounded-md">
                 <FaUsers/>
-                <span> CRM</span>
+                <span> CRM Comment</span>
             </NavLink>
         </div>
     </div>

@@ -16,6 +16,7 @@ import Register from './pages/Register'
 import TicketBook from './components/dashboard/ticket/TicketBook'
 import AddTicketPage from './components/dashboard/ticket/AddTicketPage'
 import UCrm from './components/dashboard/crm/UCrm'
+import CrmList from './components/dashboard/crm/CrmList'
 
 function App() {
  
@@ -40,6 +41,10 @@ function App() {
         <Route path="/admin-dashboard/events" element={<EventList />}></Route>
         <Route path="/admin-dashboard/add-events" element={<AddEvent />}></Route>
 
+        <Route path="/admin-dashboard/crm" element={<CrmList />}></Route>
+
+        
+
       </Route>
         <Route path="/user-dashboard" element={
   <PrivetRoutes>
@@ -48,6 +53,7 @@ function App() {
     </RoleBaseRoutes>
   </PrivetRoutes>
 }>
+  <Route index element={<Navigate to="events" />} />
   <Route path="events" element={<UEventList />} />
   <Route path="ticket" element={<TicketBook />} />
   <Route path="/user-dashboard/book/:eventId" element={<AddTicketPage />} />

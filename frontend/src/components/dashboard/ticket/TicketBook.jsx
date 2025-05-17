@@ -27,7 +27,7 @@ const TicketBook = () => {
     <div>
       <div className='p-6'>
         <div className='text-center'>
-          <h3 className='text-2xl font-bold'>Manage Event</h3>
+          <h3 className='text-2xl font-bold'>Ticket Booking</h3>
         </div>
         <div className='flex justify-between items-center mt-4'>
           <input
