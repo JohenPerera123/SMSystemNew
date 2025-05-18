@@ -22,6 +22,7 @@ import AddResource from './components/dashboard/resources/AddResources'
 import EditResource from './components/dashboard/resources/EditResource'
 import UResourcesList from './components/dashboard/resources/UResourcesList'
 import UEventBooking from './components/dashboard/EventBooking/UEventBooking'
+import AddEventBooking from './components/dashboard/EventBooking/AddEventBooking'
 
 function App() {
  
@@ -69,6 +70,7 @@ function App() {
   <Route path="/user-dashboard/crm" element={<UCrm />} />
   <Route path="/user-dashboard/resources" element={<UResourcesList />} />
   <Route path="/user-dashboard/eventbooking" element={<UEventBooking />} />
+  <Route path="/user-dashboard/add-eventbooking" element={<AddEventBooking/>}/>
 
   {/* You can add more nested routes here later, like ticket booking, profile, etc. */}
 </Route>

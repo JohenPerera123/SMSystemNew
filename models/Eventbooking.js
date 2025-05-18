@@ -25,6 +25,10 @@ const eventbookingSchema = new mongoose.Schema({
     user:{ 
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'User' },
+    ticketsBooked: {
+        type: Number,
+        default: 0
+    },
 
     createdAt: {
         type: Date,

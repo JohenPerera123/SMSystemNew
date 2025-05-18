@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
-import QRCode from 'qrcode'; // ✅ use qrcode library
+import QRCode from 'qrcode'; //library
 import html2canvas from 'html2canvas';
 
 const AddTicket = ({ eventId }) => {
