@@ -20,6 +20,11 @@ function AdminSidebar() {
                 <MdSportsSoccer />
                 <span> Stadiums</span>
             </NavLink>
+            <NavLink to="/admin-dashboard/resources" 
+            className={({ isActive }) =>`${isActive ? "bg-teal-500" : ""} flex items-center gap-2 p-2 text-white-700 hover:bg-gray-200 rounded-md`}>
+                <FaBaseballBall />
+                <span> Resources</span>
+            </NavLink>
             <NavLink to="/admin-dashboard/events" 
             className={({ isActive }) =>`${isActive ? "bg-teal-500" : ""} flex items-center gap-2 p-2 text-white-700 hover:bg-gray-200 rounded-md`}>
                 <FaBaseballBall />

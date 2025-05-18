@@ -17,6 +17,9 @@ import TicketBook from './components/dashboard/ticket/TicketBook'
 import AddTicketPage from './components/dashboard/ticket/AddTicketPage'
 import UCrm from './components/dashboard/crm/UCrm'
 import CrmList from './components/dashboard/crm/CrmList'
+import ResourcesList from './components/dashboard/resources/ResourcesList'
+import AddResource from './components/dashboard/resources/AddResources'
+import EditResource from './components/dashboard/resources/EditResource'
 
 function App() {
  
@@ -42,6 +45,10 @@ function App() {
         <Route path="/admin-dashboard/add-events" element={<AddEvent />}></Route>
 
         <Route path="/admin-dashboard/crm" element={<CrmList />}></Route>
+
+        <Route path="/admin-dashboard/resources" element={<ResourcesList />}></Route>
+        <Route path="/admin-dashboard/add-resources" element={<AddResource />}></Route>
+        <Route path="/admin-dashboard/update-resource/:id" element={<EditResource />}></Route>
 
         
 
