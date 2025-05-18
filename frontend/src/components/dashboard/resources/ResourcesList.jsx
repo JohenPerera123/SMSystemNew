@@ -91,13 +91,19 @@ const ResourceList = () => {
   }, []);
 
   const handleSearch = (e) => {
-    const keyword = e.target.value.toLowerCase();
-    const results = resources.filter(r =>
-      r.resourceName.toLowerCase().includes(keyword) ||
-      (r.stadium?.Std_name || '').toLowerCase().includes(keyword)
-    );
-    setFiltered(results);
-  };
+  const keyword = e.target.value.toLowerCase();
+  if (!keyword.trim()) {
+    setFiltered(null);
+    return;
+  }
+
+  const results = resources.filter(r =>
+    (r.resources || '').toLowerCase().includes(keyword) ||
+    (r.stadium?.Std_name || '').toLowerCase().includes(keyword)
+  );
+  setFiltered(results);
+};
+
 
   const displayList = filtered || resources;
 

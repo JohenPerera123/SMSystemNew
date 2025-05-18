@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { FaTachometerAlt, FaUsers } from 'react-icons/fa'
+import { FaBoxOpen, FaCheckCircle, FaTachometerAlt, FaUsers } from 'react-icons/fa'
 import { FaTicketAlt } from 'react-icons/fa'
 import { FaBaseballBall } from 'react-icons/fa'
 
@@ -25,9 +25,18 @@ const UserSidebar = () => {
                 <FaTicketAlt />
                 <span> Ticket Booking </span>
             </NavLink>
+            <NavLink to="/user-dashboard/resources" 
+            className={({ isActive }) =>`${isActive ? "bg-teal-500" : ""} flex items-center gap-2 p-2 text-white-700 hover:bg-gray-200 rounded-md`}>
+                <FaBoxOpen />
+                <span> Stadium Resources </span>
+            </NavLink>
             <NavLink to="/user-dashboard/crm" className="flex items-center gap-2 p-2 text-white-700 hover:bg-gray-200 rounded-md">
                 <FaUsers/>
                 <span> CRM Comment</span>
+            </NavLink>
+            <NavLink to="/user-dashboard/eventbooking" className="flex items-center gap-2 p-2 text-white-700 hover:bg-gray-200 rounded-md">
+                <FaCheckCircle/>
+                <span> Event Booking Request</span>
             </NavLink>
         </div>
     </div>

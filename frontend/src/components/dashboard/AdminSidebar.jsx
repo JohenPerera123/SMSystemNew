@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { FaTachometerAlt, FaUsers } from 'react-icons/fa'
+import { FaBoxOpen, FaDatabase, FaTachometerAlt, FaUsers } from 'react-icons/fa'
 import { MdSportsSoccer } from 'react-icons/md'
 import { FaBaseballBall } from 'react-icons/fa'
 
@@ -22,7 +22,7 @@ function AdminSidebar() {
             </NavLink>
             <NavLink to="/admin-dashboard/resources" 
             className={({ isActive }) =>`${isActive ? "bg-teal-500" : ""} flex items-center gap-2 p-2 text-white-700 hover:bg-gray-200 rounded-md`}>
-                <FaBaseballBall />
+                <FaBoxOpen />
                 <span> Resources</span>
             </NavLink>
             <NavLink to="/admin-dashboard/events" 
