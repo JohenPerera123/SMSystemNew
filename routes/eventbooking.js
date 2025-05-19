@@ -1,7 +1,5 @@
 import express from 'express';
 import authMiddelware from '../middlware/authMiddlware.js';
-import { addEventbooking, deleteEventbooking, getEventbooking, getEventsbooking, updateEventbooking } from '../controllers/eventbookingController.js';
-import { addEventbooking, deleteEventbooking, getEventbooking, getEventsbooking, updateEventbooking } from '../server/controllers/eventbookingController.js';
 import { addEventbooking, deleteEventbooking, getAllEventBookings, getEventbooking, getEventsbooking, updateEventbooking } from '../controllers/eventbookingController.js';
 
 
