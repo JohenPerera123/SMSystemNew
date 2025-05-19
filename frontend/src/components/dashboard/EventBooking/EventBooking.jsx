@@ -1,0 +1,80 @@
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+
+const EventBooking = () => {
+  const [eventbooking, setEventbooking] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+  const fetchEventBooking = async () => {
+    try {
+      const token = localStorage.getItem('token'); 
+      if (!token) {
+        console.error("No token found in localStorage.");
+        return;
+      }
+
+      const res = await axios.get('http://localhost:5000/api/eventbooking/admin/all', {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      setEventbooking(res.data.bookings); 
+      setLoading(false);
+    } catch (err) {
+      console.error("Failed to fetch all event bookings:", err);
+    }
+  };
+
+  fetchEventBooking();
+}, []);
+
+
+
+
+  return (
+    <div className="p-4">
+      <h2 className="text-xl font-semibold mb-4">All User RequestedBookings</h2>
+      {loading ? (
+        <p>Loading RequestedBookings...</p>
+      ) : eventbooking.length === 0 ? (
+        <p>No RequestedBookings found.</p>
+      ) : (
+        <div className="space-y-4">
+          {eventbooking.map(event => (
+  <div key={event._id} className="bg-white shadow-md p-4 rounded-md">
+    <p className="text-gray-800 font-medium">Event: {event.eventName}</p>
+    <p className="text-gray-800">Date: {new Date(event.eventDate).toDateString()}</p>
+    <p className="text-gray-800">Stadium: {event.stadium?.Std_name || 'N/A'}</p>
+    <p className="text-gray-800">Start: {event.startTime}</p>
+    <p className="text-gray-800">End: {event.endTime}</p>
+    <p className="text-gray-600 text-sm">User: {event.user?.username || 'Unknown'}</p>
+    <p className="text-xs text-gray-400 mt-1">
+      Submitted on {new Date(event.createdAt).toLocaleString()}
+    </p>
+    <div className="flex gap-2">
+        <Link
+          to="/admin-dashboard/add-eventbooking"
+          state={{
+                eventName: event.eventName,
+                eventDate: event.eventDate,
+                stadium: event.stadium?._id,
+                startTime: event.startTime,
+                endTime: event.endTime
+            }}
+          className="bg-teal-600 text-white px-4 py-1 rounded hover:bg-teal-700"
+        >
+          Add New Event
+        </Link>
+        </div>
+  </div>
+    ))}
+
+        </div>
+      )}
+    </div>
+  );
+};
+
+
+export default EventBooking
