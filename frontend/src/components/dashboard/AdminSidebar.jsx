@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { FaBoxOpen, FaDatabase, FaTachometerAlt, FaUsers } from 'react-icons/fa'
+import { FaBoxOpen, FaCheckCircle, FaDatabase, FaTachometerAlt, FaUsers } from 'react-icons/fa'
 import { MdSportsSoccer } from 'react-icons/md'
 import { FaBaseballBall } from 'react-icons/fa'
 
@@ -33,6 +33,10 @@ function AdminSidebar() {
             <NavLink to="/admin-dashboard/crm" className="flex items-center gap-2 p-2 text-white-700 hover:bg-gray-200 rounded-md">
                 <FaUsers/>
                 <span> CRM Comments</span>
+            </NavLink>
+            <NavLink to="/admin-dashboard/eventbooking" className="flex items-center gap-2 p-2 text-white-700 hover:bg-gray-200 rounded-md">
+                <FaCheckCircle/>
+                <span> Event Booking Request</span>
             </NavLink>
         </div>
     </div>

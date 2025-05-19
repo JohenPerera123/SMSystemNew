@@ -23,6 +23,8 @@ import EditResource from './components/dashboard/resources/EditResource'
 import UResourcesList from './components/dashboard/resources/UResourcesList'
 import UEventBooking from './components/dashboard/EventBooking/UEventBooking'
 import AddEventBooking from './components/dashboard/EventBooking/AddEventBooking'
+import EventBooking from './components/dashboard/EventBooking/EventBooking'
+import AdminAddEventBooking from './components/dashboard/EventBooking/AdminAddEventBooking'
 
 function App() {
  
@@ -53,6 +55,10 @@ function App() {
         <Route path="/admin-dashboard/add-resources" element={<AddResource />}></Route>
         <Route path="/admin-dashboard/update-resource/:id" element={<EditResource />}></Route>
 
+        <Route path="/admin-dashboard/eventbooking" element={<EventBooking />}></Route>
+
+        <Route path="/admin-dashboard/add-eventbooking" element={<AdminAddEventBooking />}></Route>
+        
         
 
       </Route>
