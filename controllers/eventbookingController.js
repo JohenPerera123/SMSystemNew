@@ -159,10 +159,25 @@ const deleteEventbooking = async (req, res) => {
     }
 };
 
+const getAllEventBookings = async (req, res) => {
+    try {
+        const allBookings = await Eventbooking.find().populate('stadium user');
+        return res.status(200).json({ success: true, bookings: allBookings });
+    } catch (error) {
+        console.error('Get all bookings error:', error);
+        return res.status(500).json({
+            success: false,
+            error: 'Get all bookings error'
+        });
+    }
+};
+
+
 export {
     addEventbooking,
     getEventsbooking,
     getEventbooking,
     updateEventbooking,
-    deleteEventbooking
+    deleteEventbooking,
+    getAllEventBookings
 };
