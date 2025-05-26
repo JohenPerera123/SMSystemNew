@@ -30,6 +30,13 @@ const EventBooking = () => {
 }, []);
 
 
+const handleDelete = (id) => {
+  const confirm = window.confirm("Are you sure you want to delete this booking?");
+  if (!confirm) return;
+
+  // Just remove from the frontend state (no API call)
+  setEventbooking(prev => prev.filter(event => event._id !== id));
+};
 
 
   return (
@@ -66,6 +73,12 @@ const EventBooking = () => {
         >
           Add New Event
         </Link>
+        <button
+    onClick={() => handleDelete(event._id)}
+    className="bg-red-600 text-white px-4 py-1 rounded hover:bg-red-700"
+  >
+    Delete
+  </button>
         </div>
   </div>
     ))}

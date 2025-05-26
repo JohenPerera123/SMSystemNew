@@ -9,13 +9,25 @@ const UEventList = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedDate, setSelectedDate] = useState(null)
 
-  useEffect(() => {
-    const getEvents = async () => {
-      const data = await fetchEvents()
-      setEvents(data)
-    }
-    getEvents()
-  }, [])
+useEffect(() => {
+  const getEvents = async () => {
+    const data = await fetchEvents();
+    const now = new Date();
+
+    const upcomingEvents = data.filter(event => {
+      const [endHour, endMinute] = event.endTime.split(':');
+      const eventEndDateTime = new Date(event.eventDate);
+      eventEndDateTime.setHours(parseInt(endHour), parseInt(endMinute), 0, 0);
+      return eventEndDateTime >= now;
+    });
+
+    setEvents(upcomingEvents);
+  };
+
+  getEvents();
+}, []);
+
+
 
   // Extract dates with events to highlight in calendar
   const eventDates = events.map(event => new Date(event.eventDate).toDateString())
@@ -67,23 +79,25 @@ const UEventList = () => {
         <p className="text-gray-500 italic">No events found for the selected criteria.</p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredEvents.map(event => (
-            <div
-              key={event._id}
-              className="bg-white shadow-lg rounded-lg p-4 border border-gray-200"
-            >
-              <h3 className="text-xl font-semibold">{event.eventName}</h3>
-              <p className="text-gray-600 text-sm mt-1">
-                {new Date(event.eventDate).toDateString()}
-              </p>
-              <p className="text-sm mt-2">
-                <strong>Time:</strong> {event.startTime} - {event.endTime}
-              </p>
-              <p className="text-sm">
-                <strong>Stadium:</strong> {event.stadium?.Std_name || event.stadium}
-              </p>
-            </div>
-          ))}
+          {filteredEvents
+  .filter(event => event.stadium && (event.stadium.Std_name || typeof event.stadium === 'string'))
+  .map((event) => (
+    <div
+      key={event._id}
+      className="bg-white shadow-lg rounded-lg p-4 border border-gray-200"
+    >
+      <h3 className="text-xl font-semibold">{event.eventName}</h3>
+      <p className="text-gray-600 text-sm mt-1">{new Date(event.eventDate).toDateString()}</p>
+      <p className="text-sm mt-2">
+        <strong>Time:</strong> {event.startTime} - {event.endTime}
+      </p>
+      <p className="text-sm">
+        <strong>Stadium:</strong> {event.stadium?.Std_name || event.stadium}
+      </p>
+      
+    </div>
+))}
+
         </div>
       )}
     </div>

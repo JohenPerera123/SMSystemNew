@@ -9,12 +9,23 @@ const EventList = () => {
     const [searchTerm, setSearchTerm] = useState('');
  
     useEffect(() => {
-    const getEvents = async () => {
-      const data = await fetchEvents();
-      setEvents(data);
-    };
-    getEvents();
-  }, []);
+  const getEvents = async () => {
+    const data = await fetchEvents();
+    const now = new Date();
+
+    const validEvents = data.filter(event => {
+      const [endHour, endMinute] = event.endTime.split(':');
+      const eventEndDateTime = new Date(event.eventDate);
+      eventEndDateTime.setHours(parseInt(endHour), parseInt(endMinute), 0, 0);
+
+      return eventEndDateTime > now;
+    });
+
+    setEvents(validEvents);
+  };
+
+  getEvents();
+}, []);
 
   const handleDelete = async (eventId) => {
     const confirm = window.confirm('Are you sure you want to delete this event?');
@@ -62,28 +73,32 @@ const EventList = () => {
       <div className="p-6">
         <h2 className="text-2xl font-bold mb-4">Event List</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredEvents.map((event) => (
-            <div
-              key={event._id}
-              className="bg-white shadow-lg rounded-lg p-4 border border-gray-200"
-            >
-              <h3 className="text-xl font-semibold">{event.eventName}</h3>
-              <p className="text-gray-600 text-sm mt-1">{new Date(event.eventDate).toDateString()}</p>
-              {/* <p className="text-gray-700 mt-2">{event.description || 'No description provided'}</p> */}
-              <p className="text-sm mt-2">
-                <strong>Time:</strong> {event.startTime} - {event.endTime}
-              </p>
-              <p className="text-sm">
-                <strong>Stadium:</strong> {event.stadium?.Std_name || event.stadium}
-                
-              </p>
-              <div>
-                <button className="px-3 py-1 text-white bg-red-600 rounded hover:bg-red-700"
-            onClick={() =>handleDelete(event._id)}>Delete</button>
-              </div>
-              
-            </div>
-          ))}
+          {filteredEvents
+  .filter(event => event.stadium && (event.stadium.Std_name || typeof event.stadium === 'string'))
+  .map((event) => (
+    <div
+      key={event._id}
+      className="bg-white shadow-lg rounded-lg p-4 border border-gray-200"
+    >
+      <h3 className="text-xl font-semibold">{event.eventName}</h3>
+      <p className="text-gray-600 text-sm mt-1">{new Date(event.eventDate).toDateString()}</p>
+      <p className="text-sm mt-2">
+        <strong>Time:</strong> {event.startTime} - {event.endTime}
+      </p>
+      <p className="text-sm">
+        <strong>Stadium:</strong> {event.stadium?.Std_name || event.stadium}
+      </p>
+      <div>
+        <button
+          className="px-3 py-1 text-white bg-red-600 rounded hover:bg-red-700"
+          onClick={() => handleDelete(event._id)}
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+))}
+
         </div>
       </div>
     </div>

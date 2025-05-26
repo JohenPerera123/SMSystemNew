@@ -25,7 +25,9 @@ import UEventBooking from './components/dashboard/EventBooking/UEventBooking'
 import AddEventBooking from './components/dashboard/EventBooking/AddEventBooking'
 import EventBooking from './components/dashboard/EventBooking/EventBooking'
 import AdminAddEventBooking from './components/dashboard/EventBooking/AdminAddEventBooking'
-
+import ForgotPassword from './pages/ForgotPassword';
+import VerifyOtp from './pages/VerifyOtp';
+import ResetPassword from './pages/ResetPassword';
 function App() {
  
   return (
@@ -34,6 +36,9 @@ function App() {
         <Route path="/" element={<Navigate to="/admin-dashboard"/>}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
+        <Route path="/forgot-password" element={<ForgotPassword />}></Route>
+        <Route path="/verify-otp" element={<VerifyOtp />}></Route>
+        <Route path="/reset-password" element={<ResetPassword />}></Route>
         <Route path="/admin-dashboard" element={
           <PrivetRoutes>
             <RoleBaseRoutes requiredRole={['admin']}>
@@ -78,7 +83,6 @@ function App() {
   <Route path="/user-dashboard/eventbooking" element={<UEventBooking />} />
   <Route path="/user-dashboard/add-eventbooking" element={<AddEventBooking/>}/>
 
-  {/* You can add more nested routes here later, like ticket booking, profile, etc. */}
 </Route>
 
       </Routes>

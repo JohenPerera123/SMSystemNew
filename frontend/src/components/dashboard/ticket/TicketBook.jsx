@@ -16,8 +16,11 @@ const TicketBook = () => {
   }, []);
 
   const filteredEvents = events.filter(event =>
-    event.eventName.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  event.eventName.toLowerCase().includes(searchTerm.toLowerCase()) &&
+  event.stadium && typeof event.stadium === 'object' &&
+  event.stadium.Std_name && event.stadium.Std_capacity
+);
+
 
   const handleBookTicket = (eventId) => {
     navigate(`/user-dashboard/book/${eventId}`);
@@ -45,7 +48,7 @@ const TicketBook = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredEvents.map((event) => {
             const stadium = event.stadium;
-            const capacity = stadium?.Std_capacity || 'N/A';
+            const capacity = stadium?.Std_capacity;
             const availableTickets = capacity - (event.ticketsBooked || 0);
 
             return (
