@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
+import nodemailer from "nodemailer";
 
 const login = async (req, res) => {
 
@@ -68,5 +69,66 @@ const register = async (req, res) => {
     }
 };
 
+const otpStore = new Map();
+
+export const sendOtp = async (req, res) => {
+  const { email } = req.body;
+  const user = await User.findOne({ email });
+  if (!user) return res.status(404).json({ success: false, error: "Email not found" });
+
+  const otp = Math.floor(100000 + Math.random() * 900000).toString();
+  otpStore.set(email, otp);
+
+  // Send Email
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS
+    }
+  });
+
+  await transporter.sendMail({
+    from: process.env.EMAIL_USER,
+    to: email,
+    subject: "Your OTP Code",
+    text: `Your OTP code is ${otp}. It will expire in 5 minutes.`
+  });
+
+  setTimeout(() => otpStore.delete(email), 300000); // 5 min expiry
+  return res.status(200).json({ success: true, message: "OTP sent to email" });
+};
+
+
+export const verifyOtp = (req, res) => {
+  const { email, otp } = req.body;
+  const storedOtp = otpStore.get(email);
+
+  if (!storedOtp || storedOtp !== otp) {
+    return res.status(400).json({ success: false, error: "Invalid or expired OTP" });
+  }
+
+  const token = jwt.sign({ email }, process.env.JWT_KEY, { expiresIn: "10m" });
+  otpStore.delete(email);
+  return res.status(200).json({ success: true, token });
+};
+
+export const resetPassword = async (req, res) => {
+  const { token, newPassword } = req.body;
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_KEY);
+    const email = decoded.email;
+    const user = await User.findOne({ email });
+    if (!user) return res.status(404).json({ success: false, error: "User not found" });
+
+    user.password = await bcrypt.hash(newPassword, 10);
+    await user.save();
+
+    return res.status(200).json({ success: true, message: "Password reset successful" });
+  } catch (err) {
+    return res.status(400).json({ success: false, error: "Invalid or expired token" });
+  }
+};
 
 export{login, verify , register}

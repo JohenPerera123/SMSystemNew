@@ -78,6 +78,7 @@ const Login = () => {
                 <div className="flex flex-col text-right">
                     <Link to="/forgot-password" className='text-sm text-teal-600 hover:underline'>Forgot Password?</Link>
                 </div>
+                <Link to="/forgot-password" className='text-sm text-teal-600 hover:underline'>Forgot Password?</Link>
             </div>
         </form>
         </div>
