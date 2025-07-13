@@ -17,15 +17,19 @@ const getResources = async (req, res) => {
 const addResource = async (req, res) => {
   try {
     const { stadiumId, resources } = req.body;
+    const photo = req.file ? req.file.filename : null;
 
     const newResource = new Resource({
       stadium: stadiumId,
       resources,
+      photo,
     });
 
     await newResource.save();
     return res.status(200).json({ success: true, resource: newResource });
   } catch (error) {
+      console.error("Add resource error:", error);  // <-- Add this line
+
     return res.status(500).json({
       success: false,
       error: 'Add resource error',
@@ -57,10 +61,21 @@ const updateResource = async (req, res) => {
   try {
     const { id } = req.params;
     const { stadiumId, resources } = req.body;
+    const photo = req.file ? req.file.filename : undefined;
+
+    const updateFields = {
+      stadium: stadiumId,
+      resources,
+    };
+
+    if (photo) {
+      updateFields.photo = photo;
+    }
 
     const updatedResource = await Resource.findByIdAndUpdate(
       id,
-      { stadium: stadiumId, resources },
+      updateFields,
+      // { stadium: stadiumId, resources },
       { new: true }
     );
 

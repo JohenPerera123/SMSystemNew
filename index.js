@@ -4,6 +4,10 @@ import path from 'path';
 
 import connectDatabase from './db/db.js'
 
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+
 import authRouter from './routes/auth.js'
 import stadiumRouter from './routes/stadium.js'
 import eventRouter from './routes/event.js'
@@ -23,6 +27,9 @@ app.use(cors())
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 app.use('/api/auth', authRouter)

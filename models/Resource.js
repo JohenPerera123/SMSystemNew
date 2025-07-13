@@ -10,6 +10,9 @@ const resourceSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  photo: {
+    type: String, // Store the file path or URL
+  },
   createdAt: {
     type: Date,
     default: Date.now,
