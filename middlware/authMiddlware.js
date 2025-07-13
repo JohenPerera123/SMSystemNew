@@ -22,7 +22,7 @@ const verifyUser = async (req, res, next) => {
       return res.status(403).json({ success: false, error: "User not found" });
     }
 
-    req.username = user; // you might rename this to req.user for clarity
+    req.username = user; 
     next();
   } catch (error) {
     console.error("verifyUser middleware error:", error);
