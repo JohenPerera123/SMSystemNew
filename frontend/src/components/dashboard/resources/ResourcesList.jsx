@@ -27,11 +27,22 @@ const ResourceCard = ({ resource, onDelete }) => {
     navigate(`/admin-dashboard/update-resource/${resource._id}`);
   };
 
+  const imageUrl = resource.photo
+    ? `http://localhost:5000/uploads/resources/${resource.photo}`
+    :null;
+
   return (
     <div className="bg-white shadow-md rounded-md p-4 border hover:shadow-lg transition-all">
       <h3 className="text-lg font-semibold mb-1">
         Stadium: {resource.stadium?.Std_name}
       </h3>
+      {imageUrl && (
+        <img
+          src={imageUrl}
+          alt="Resource"
+          className="w-full h-40 object-cover rounded mb-3"
+        />
+      )}
       <h3 className="text-sm text-gray-600 mb-2">Resources: {resource.resources}</h3>
 
       <div className="flex gap-2">

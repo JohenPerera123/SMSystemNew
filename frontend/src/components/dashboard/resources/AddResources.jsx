@@ -7,6 +7,7 @@ const AddResource = () => {
   const [resourceName, setResourceName] = useState('');
   const [stadiumId, setStadiumId] = useState('');
   const [loading, setLoading] = useState(false);
+  const [photo, setPhoto] = useState(null);
   const navigate = useNavigate();
 
   // Fetch stadium list
@@ -32,23 +33,31 @@ const AddResource = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!resourceName || !stadiumId) {
-      alert('Please fill all fields');
+    if (!resourceName || !stadiumId || !photo) {
+      alert('Please fill all fields and uplod a photo');
       return;
     }
 
     try {
       setLoading(true);
       const token = localStorage.getItem('token');
+
+      const formData =new FormData();
+      formData.append('resources', resourceName);
+      formData.append('stadiumId',stadiumId);
+      formData.append('photo', photo);
+
       const res = await axios.post(
         'http://localhost:5000/api/resources/add-resource',
-        {
-          resources: resourceName,
-          stadiumId,
-        },
+        formData,
+        // {
+        //   resources: resourceName,
+        //   stadiumId,
+        // },
         {
           headers: {
             Authorization: `Bearer ${token}`,
+            'Content-Type':'multipart/form-data',
           },
         }
       );
@@ -93,6 +102,16 @@ const AddResource = () => {
             ))}
           </select>
         </div>
+        <div>
+          <label className="block mb-1 font-medium">Upload Photo:</label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setPhoto(e.target.files[0])}
+            className="w-full"
+          />
+        </div>
+
 
         <div className="text-right">
           <button
