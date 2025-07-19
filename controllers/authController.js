@@ -89,11 +89,51 @@ export const sendOtp = async (req, res) => {
   });
 
   await transporter.sendMail({
-    from: process.env.EMAIL_USER,
-    to: email,
-    subject: "Your OTP Code",
-    text: `Your OTP code is ${otp}. It will expire in 5 minutes.`
-  });
+  from: process.env.EMAIL_USER,
+  to: email,
+  subject: "Your OTP Code - Stadium Management System",
+  html: `
+  <div style="background-color:#f4f6f8;padding:30px 15px;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;margin:0 auto;background:#ffffff;font-family:'Segoe UI',sans-serif;">
+      <tr>
+        <td style="background-color:#2563eb;padding:20px;text-align:center;color:#ffffff;">
+          <h1 style="margin:0;font-size:24px;">Stadium Management System</h1>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:30px;color:#333333;">
+          <p style="font-size:16px;margin:0 0 20px 0;">Hello,</p>
+          <p style="font-size:14px;margin:0 0 20px 0;">
+            You requested a One-Time Password (OTP) to verify your email address.<br />
+            Use the code below within the next 5 minutes to proceed.
+          </p>
+          <div style="text-align:center;margin:30px 0;">
+            <span style="display:inline-block;background:#e0e7ff;color:#1e3a8a;font-size:28px;font-weight:bold;padding:12px 24px;border-radius:6px;letter-spacing:4px;">
+              ${otp}
+            </span>
+          </div>
+          <p style="font-size:13px;color:#666666;">
+            If you didn’t request this, you can safely ignore this email.
+          </p>
+          <p style="font-size:13px;color:#666666;margin-top:20px;">
+            Thanks,<br />
+            <strong>Stadium Management System Team</strong>
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td style="background-color:#f4f6f8;text-align:center;padding:15px;font-size:11px;color:#999999;">
+          &copy; 2025 Stadium Management System. All rights reserved.
+        </td>
+      </tr>
+    </table>
+  </div>`,
+headers: {
+    'MIME-Version': '1.0',
+    'Content-Type': 'text/html; charset=UTF-8'
+  }
+});
+
 
   setTimeout(() => otpStore.delete(email), 300000); // 5 min expiry
   return res.status(200).json({ success: true, message: "OTP sent to email" });
