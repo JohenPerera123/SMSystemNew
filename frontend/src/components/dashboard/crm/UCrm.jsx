@@ -9,7 +9,7 @@ const UCrm = () => {
   const [editing, setEditing] = useState(null);
 
   useEffect(() => {
-  const stored = JSON.parse(localStorage.getItem('user'));
+  const stored = JSON.parse(sessionStorage.getItem('user'));
   if (stored && stored._id) {
     setUser(stored);
     fetchUserComments(stored._id);

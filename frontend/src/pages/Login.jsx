@@ -11,36 +11,43 @@ const Login = () => {
     const navigate = useNavigate()
 
     const handleSubmit = async(e) => {
+    e.preventDefault();
+    try {
+        const response = await axios.post("http://localhost:5000/api/auth/login", {
+            email, password
+        });
 
-        e.preventDefault()
-        try {
-            const response = await axios.post("http://localhost:5000/api/auth/login",
-                {email, password}
-            );
-            if(response.data.success){
-                login(response.data.user)
-                localStorage.setItem("token", response.data.token)
-                localStorage.setItem("user", JSON.stringify(response.data.user));
-                if(response.data.user.role === "admin"){
-                    navigate("/admin-dashboard")
-                }else {
-                    navigate("/user-dashboard")
-                }
-            }
-        }
-        catch (error) {
-            if(error.response && !error.response.data.success){
-                setError(error.response.data.error)
+        if (response.data.success) {
+            // 🔥 Clear old tokens and user info first
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+
+            // ✅ Store new token and user info
+            localStorage.setItem("token", response.data.token);
+            localStorage.setItem("user", JSON.stringify(response.data.user));
+            login(response.data.user);  // Update context
+
+            // ✅ Redirect based on role
+            if (response.data.user.role === "admin") {
+                navigate("/admin-dashboard");
             } else {
-                setError("Server Error");
+                navigate("/user-dashboard");
             }
         }
-    };
+    } catch (error) {
+        if (error.response && !error.response.data.success) {
+            setError(error.response.data.error);
+        } else {
+            setError("Server Error");
+        }
+    }
+};
+
     
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-b from-teal-600 
     from-50% to-gray-100 to-50% space-y-6" >
-        <h2 className='font-sevillana text-3xl text-white'>Stadium Management System</h2>
+        <h2 className='font-sevillana text-3xl text-white'>Stadium(Arena) Management System</h2>
         <div className='border shadow p-6 w-80 bg-white'>
         <h2 className='text-2xl font-bold'>Login</h2>
         {error && <p className='text-red-500'>{error}</p>}
@@ -76,9 +83,8 @@ const Login = () => {
             <div className='mb-4'>
                 <button type='submit' className='w-full bg-teal-600 text-white py-2'>Login</button>
                 <div className="flex flex-col text-right">
-                    <Link to="/forgot-password" className='text-sm text-teal-600 hover:underline'>Forgot Password?</Link>
+                    <Link to="/forgot-password" className="text-sm text-teal-600 hover:underline" >Forgot Password?</Link>
                 </div>
-                <Link to="/forgot-password" className='text-sm text-teal-600 hover:underline'>Forgot Password?</Link>
             </div>
         </form>
         </div>

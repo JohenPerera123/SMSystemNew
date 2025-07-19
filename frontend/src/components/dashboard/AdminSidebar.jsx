@@ -30,11 +30,13 @@ function AdminSidebar() {
                 <FaBaseballBall />
                 <span> Events</span>
             </NavLink>
-            <NavLink to="/admin-dashboard/crm" className="flex items-center gap-2 p-2 text-white-700 hover:bg-gray-200 rounded-md">
+            <NavLink to="/admin-dashboard/crm" 
+            className={({ isActive }) =>`${isActive ? "bg-teal-500" : ""} flex items-center gap-2 p-2 text-white-700 hover:bg-gray-200 rounded-md`}>
                 <FaUsers/>
                 <span> CRM Comments</span>
             </NavLink>
-            <NavLink to="/admin-dashboard/eventbooking" className="flex items-center gap-2 p-2 text-white-700 hover:bg-gray-200 rounded-md">
+            <NavLink to="/admin-dashboard/eventbooking" 
+            className={({ isActive }) =>`${isActive ? "bg-teal-500" : ""} flex items-center gap-2 p-2 text-white-700 hover:bg-gray-200 rounded-md`}>
                 <FaCheckCircle/>
                 <span> Event Booking Request</span>
             </NavLink>

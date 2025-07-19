@@ -7,31 +7,68 @@ const EventBooking = () => {
   const [existingEvents, setExistingEvents] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+//   useEffect(() => {
+//   const fetchEventBooking = async () => {
+//     try {
+//       const token = localStorage.getItem('token'); 
+//       if (!token) {
+//         console.error("No token found in localStorage.");
+//         return;
+//       }
+
+//       const eventsRes = await axios.get('http://localhost:5000/api/events', {
+//           headers: { Authorization: `Bearer ${token}` },
+//         });
+//         const existingEventNames = eventsRes.data.events.map(event => event.eventName);
+
+//       const res = await axios.get('http://localhost:5000/api/eventbooking/admin/all', {
+//         headers: { Authorization: `Bearer ${token}` }
+//       });
+
+//       const filteredBookings = res.data.bookings.filter(
+//         booking => !existingEventNames.includes(booking.eventName)
+//       );
+
+//       setEventbooking(res.data.bookings);
+
+
+//       // setEventbooking(res.data.bookings); 
+//       setLoading(false);
+//     } catch (err) {
+//       console.log(err.massage);
+//       console.error("Failed to fetch all event bookings:", err);
+//     }
+//   };
+
+//   fetchEventBooking();
+// }, []);
+
+useEffect(() => {
   const fetchEventBooking = async () => {
     try {
-      const token = localStorage.getItem('token'); 
+      const token = localStorage.getItem('token');
       if (!token) {
         console.error("No token found in localStorage.");
         return;
       }
 
+      // 1. Fetch all existing events (already approved/added)
       const eventsRes = await axios.get('http://localhost:5000/api/events', {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const existingEventNames = eventsRes.data.map(event => event.eventName);
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const existingEventNames = eventsRes.data.events.map(event => event.eventName);
 
+      // 2. Fetch all booking requests
       const res = await axios.get('http://localhost:5000/api/eventbooking/admin/all', {
         headers: { Authorization: `Bearer ${token}` }
       });
 
-      const filteredBookings = bookingsRes.data.bookings.filter(
-          booking => !existingEventNames.includes(booking.eventName)
-        );
+      // 3. Filter out bookings that match any already existing event
+      const filteredBookings = res.data.bookings.filter(
+        booking => !existingEventNames.includes(booking.eventName)
+      );
 
       setEventbooking(filteredBookings);
-
-      // setEventbooking(res.data.bookings); 
       setLoading(false);
     } catch (err) {
       console.error("Failed to fetch all event bookings:", err);
@@ -85,12 +122,12 @@ const handleDelete = (id) => {
         >
           Add New Event
         </Link>
-        <button
+        {/* <button
     onClick={() => handleDelete(event._id)}
     className="bg-red-600 text-white px-4 py-1 rounded hover:bg-red-700"
   >
     Delete
-  </button>
+  </button> */}
         </div>
   </div>
     ))}

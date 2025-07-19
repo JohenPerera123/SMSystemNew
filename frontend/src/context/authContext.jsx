@@ -1,57 +1,71 @@
-import axios from 'axios'
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import axios from 'axios';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
-const userContext = createContext()
+const userContext = createContext();
 
-const authContext = ({children}) =>{
-    const [user, setUser] = useState(null)
-    const [loading, setLoading] = useState(false)
+const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const verifyUser =async () => {
-            try{
-                const token = localStorage.getItem("token")
-                if(token){
-                const response = await axios.get("http://localhost:5000/api/auth/verify",
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                        },
-                    }
-                );
-                
-                if(response.data.success){
-                    setUser(response.data.user)
-                    }
-                } else {
-                    setUser(null)
-                    setLoading(false)
-                }
-            } catch(error){
-                if(error.response && !error.response.data.error)
-                    setUser(null)
-            } finally{
-                setLoading(false)
-            }
+  const verifyUser = async () => {
+    try {
+      // const token = sessionStorage.getItem("token");
+      const token = localStorage.getItem("token");
+      if (token) {
+        const response = await axios.get("http://localhost:5000/api/auth/verify", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (response.data.success) {
+          setUser(response.data.user);
+        } else {
+          setUser(null);
         }
-        verifyUser()
-    }, [])
-
-    const login = (user) => {
-        setUser(user)
+      } else {
+        setUser(null);
+      }
+    } catch (error) {
+      setUser(null);
+    } finally {
+      setLoading(false);
     }
+  };
 
-    const logout = () => {
-        setUser(null)
-        localStorage.removeItem("user")
-        localStorage.removeItem("token")
-    }
+  useEffect(() => {
+    verifyUser();
+  }, []);
+
+  const login = (user, token) => {
+    setUser(user);
+    sessionStorage.setItem("token", token);
+    sessionStorage.setItem("user", JSON.stringify(user));
+  };
+
+  const logout = () => {
+    setUser(null);
+    sessionStorage.removeItem("user");
+    sessionStorage.removeItem("token");
+  };
+
+//   const login = (user, token) => {
+//   setUser(user);
+//   localStorage.setItem("token", token);
+//   localStorage.setItem("user", JSON.stringify(user));
+// };
+
+// const logout = () => {
+//   setUser(null);
+//   localStorage.removeItem("user");
+//   localStorage.removeItem("token");
+// };
+
+
   return (
-    <userContext.Provider value={{user, login, logout, loading}}>
-        {children}
+    <userContext.Provider value={{ user, login, logout, loading }}>
+      {children}
     </userContext.Provider>
-  )
-}
+  );
+};
 
-export const useAuth = () => useContext(userContext)   
-export default authContext
+export const useAuth = () => useContext(userContext);
+export default AuthProvider;

@@ -25,6 +25,7 @@ import UEventBooking from './components/dashboard/EventBooking/UEventBooking'
 import AddEventBooking from './components/dashboard/EventBooking/AddEventBooking'
 import EventBooking from './components/dashboard/EventBooking/EventBooking'
 import AdminAddEventBooking from './components/dashboard/EventBooking/AdminAddEventBooking'
+import Contact from './components/dashboard/contact/Contact'
 import ForgotPassword from './pages/ForgotPassword';
 import VerifyOtp from './pages/VerifyOtp';
 import ResetPassword from './pages/ResetPassword';
@@ -82,7 +83,7 @@ function App() {
   <Route path="/user-dashboard/resources" element={<UResourcesList />} />
   <Route path="/user-dashboard/eventbooking" element={<UEventBooking />} />
   <Route path="/user-dashboard/add-eventbooking" element={<AddEventBooking/>}/>
-
+  <Route path='/user-dashboard/contact' element={<Contact/>}/>
 </Route>
 
       </Routes>
