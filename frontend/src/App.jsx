@@ -2,7 +2,7 @@
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
 import Login from './pages/Login'
 import AdminDashboard from './pages/AdminDashboard'
-import UserDashboard from './pages/UserDashboard'
+import UserDashboard from './pages/userDashboard'
 import PrivetRoutes from './utils/PrivetRoutes'
 import RoleBaseRoutes from './utils/RoleBaseRoutes'
 import AdminSummary from './components/dashboard/AdminSummary'
