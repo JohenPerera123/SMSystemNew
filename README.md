@@ -112,8 +112,10 @@ npm install
 
 Create a .env file in the frontend folder for any client-side variables (e.g., REACT_APP_API_URL).
 
-#Environment Variables (.env examples)
-##Backend .env
+---
+
+# Environment Variables (.env examples)
+## Backend .env
 - PORT=5000
 - MONGO_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/stadiumdb?retryWrites=true&w=majority
 - JWT_SECRET=your_super_secret_jwt_key
@@ -125,12 +127,13 @@ Create a .env file in the frontend folder for any client-side variables (e.g., R
 - EMAIL_PASS=your-email-password-or-app-password
 - CLIENT_URL=http://localhost:3000
 
-##Frontend .env (React)
+## Frontend .env (React)
 
 REACT_APP_API_URL=http://localhost:5000/api
 Security note: Never commit .env with secrets. Add .env and uploads/ (if used) to .gitignore.
+---
 
-#Database Seeding / Sample Data
+# Database Seeding / Sample Data
 You can either create seed scripts or insert sample documents via a MongoDB GUI (MongoDB Compass) or by calling your API endpoints.
 
 ##Example seed items to create:
@@ -145,26 +148,27 @@ You can either create seed scripts or insert sample documents via a MongoDB GUI 
 
 - A seed script (e.g., seed.js) can use your Mongoose models to insert test data and then exit.
 
+---
 
-#Running the App
-#Development
-##Start backend:
+# Running the App
+# Development
+## Start backend:
 
 cd backend
 npm run dev
 (e.g., nodemon server.js)
 
-##Start frontend:
+## Start frontend:
 
 cd frontend
 npm start
 Visit http://localhost:3000.
 
 
-##API Endpoints (Summary)
+## API Endpoints (Summary)
 These are example routes — adjust according to your actual implementation.
 
-##Auth
+## Auth
 
 - POST /api/auth/register — register new user
 
@@ -176,7 +180,7 @@ These are example routes — adjust according to your actual implementation.
 
 - POST /api/auth/reset-password — set new password
 
-##Users
+## Users
 
 - GET /api/users — (admin) list users
 
@@ -184,7 +188,7 @@ These are example routes — adjust according to your actual implementation.
 
 - PUT /api/users/:id — update user
 
-##Stadiums
+## Stadiums
 
 - POST /api/stadiums — (admin) create stadium with image
 
@@ -196,7 +200,7 @@ These are example routes — adjust according to your actual implementation.
 
 - DELETE /api/stadiums/:id — (admin) delete stadium
 
-##Events
+## Events
 
 - POST /api/events — (admin) create event
 
@@ -208,7 +212,7 @@ These are example routes — adjust according to your actual implementation.
 
 - DELETE /api/events/:id — (admin) delete event
 
-##Bookings / Tickets
+## Bookings / Tickets
 
 - POST /api/bookings — create booking (user)
 
@@ -218,7 +222,7 @@ These are example routes — adjust according to your actual implementation.
 
 - PUT /api/bookings/:id/cancel — cancel booking (user/admin)
 
-##CRM (Comments)
+## CRM (Comments)
 
 - POST /api/crm — create comment (user)
 
@@ -230,7 +234,9 @@ These are example routes — adjust according to your actual implementation.
 
 - DELETE /api/crm/:id — delete comment (owner/admin)
 
-#Authentication & Security
+---
+
+# Authentication & Security
 - Passwords hashed with bcrypt before saving to the DB.
 
 - JWT tokens issued at login and verified with middleware for protected routes.
@@ -240,15 +246,18 @@ These are example routes — adjust according to your actual implementation.
 - Ownership checks on resources (e.g., only the creator can modify their CRM comment).
 
 - OTP flow: OTP stored temporarily (in DB with short expiry or in-memory store) and verified before allowing password reset.
-
-#Testing
+ --- 
+ 
+# Testing
 - Manual testing via the frontend UI.
 
 - Use Postman or Insomnia to test API endpoints.
 
 - Optionally add automated tests with Jest + Supertest for API routes.
 
-#Deployment
+--- 
+
+# Deployment
 Options:
 
 - Deploy backend to Heroku / Render / DigitalOcean / AWS.
@@ -259,7 +268,9 @@ Options:
 
 Important: Set environment variables on your hosting provider and configure CORS to allow your frontend domain.
 
-#Known Issues & TODOs
+---
+
+# Known Issues & TODOs
 - Improve token storage & refresh strategy (use refresh tokens / HTTP-only cookies)
 
 - Implement rate limiting on OTP endpoints
@@ -270,7 +281,9 @@ Important: Set environment variables on your hosting provider and configure CORS
 
 - Support image CDN / cloud storage (e.g., AWS S3) for uploads
 
-#Contributing
+---
+
+# Contributing
 Contributions are welcome!
 
 1.Fork the repository
